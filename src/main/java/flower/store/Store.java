@@ -4,9 +4,23 @@ import flower.store.filters.SearchFilter;
 import flower.store.items.Item;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
 
 public class Store {
-    public List<Item> items;
+    @Getter
+    private List<Item> items;
+
+    public Store() {
+        items = new ArrayList<>();
+    }
+
+    public void addItem(Item item) {
+        items.add(item);
+    }
+
+    public void removeItem(Item item) {
+        items.remove(item);
+    }
 
     public List<Item> search(SearchFilter filter) {
         List<Item> result = new ArrayList<>();
