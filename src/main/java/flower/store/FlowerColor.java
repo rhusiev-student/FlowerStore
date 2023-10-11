@@ -1,7 +1,5 @@
 package flower.store;
 
-import flower.store.items.Item;
-
 public enum FlowerColor {
     /**
      * Flower colors.
