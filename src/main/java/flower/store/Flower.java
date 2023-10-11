@@ -11,6 +11,13 @@ public class Flower implements Item {
     @Getter private double price;
     @Getter private FlowerType flowerType;
 
+    public Flower() {
+        this.sepalLength = 0;
+        this.color = FlowerColor.RED;
+        this.price = 0;
+        this.flowerType = FlowerType.ROSE;
+    }
+
     public Flower(FlowerType flowerType) {
         this.sepalLength = 0;
         this.color = FlowerColor.RED;
