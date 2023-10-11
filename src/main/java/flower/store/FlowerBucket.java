@@ -4,19 +4,19 @@ import flower.store.items.Item;
 import java.util.List;
 
 public class FlowerBucket {
-    private List<Item> items;
+    private List<Item> bucketItems;
 
     public void add(Item item) {
-        items.add(item);
+        bucketItems.add(item);
     }
 
     public void add(List<Item> items) {
-        this.items.addAll(items);
+        this.bucketItems.addAll(items);
     }
 
     public double getPrice() {
         double price = 0;
-        for (Item item : items) {
+        for (Item item : bucketItems) {
             price += item.getPrice();
         }
         return price;
