@@ -8,7 +8,7 @@ import lombok.Setter;
 public class Flower implements Item {
     @Getter private double sepalLength;
     private FlowerColor color;
-    @Getter private double price;
+    @Getter @Setter private double price;
     @Getter private FlowerType flowerType;
 
     public Flower() {
@@ -33,5 +33,7 @@ public class Flower implements Item {
         this.flowerType = flowerType;
     }
 
-    public String getColor() { return color.toString(); }
+    public String getColor() {
+        return color.toString();
+    }
 }
