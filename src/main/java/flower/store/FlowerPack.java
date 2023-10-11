@@ -1,10 +1,10 @@
 package flower.store;
 
-public class FlowerPack {
+public class FlowerPack implements Item {
     private Flower flower;
-    private int quantity;
+    private int amount;
 
     public double getPrice() {
-        return flower.getPrice() * quantity;
+        return flower.getPrice() * amount;
     }
 }
