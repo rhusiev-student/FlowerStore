@@ -1,5 +1,7 @@
 package flower.store;
 
+import flower.store.items.Item;
+
 public class FlowerPack implements Item {
     private Flower flower;
     private int amount;

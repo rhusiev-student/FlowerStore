@@ -1,5 +1,6 @@
 package flower.store;
 
+import flower.store.items.Item;
 import java.util.List;
 
 public class FlowerBucket {
