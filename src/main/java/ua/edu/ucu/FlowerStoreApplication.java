@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,13 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class FlowerStoreApplication {
     private ArrayList<Flower> flowers = new ArrayList<Flower>();
 
-    @GetMapping("/getFlowers")
+    @GetMapping("/getflowers")
     public List<Flower> getFlowers() {
         return flowers;
     }
 
-    @GetMapping("/addFlower")
-    public void addFlower(Flower flower) {
+    @PostMapping("/addflower")
+    public void addFlower(@RequestBody Flower flower) {
         flowers.add(flower);
     }
 
