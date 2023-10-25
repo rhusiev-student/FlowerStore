@@ -1,5 +1,6 @@
-package flower.store;
+package flower.store.items;
 
+import flower.store.FlowerType;
 import java.util.Random;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
