@@ -56,7 +56,7 @@ public class Flower implements Item {
 
     public static Flower fromJson(Map<String, Object> json) {
         return new Flower((double)json.get("sepal_length"),
-                          FlowerColor.valueOf((String)json.get("color")),
+                          FlowerColor.fromString((String)json.get("color")),
                           (double)json.get("price"),
                           FlowerType.valueOf((String)json.get("flower_type")));
     }

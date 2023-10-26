@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -51,22 +51,22 @@ public class StoreManagement {
         flowerStore.addFlowerBucket(FlowerBucket.fromJson(json));
     }
 
-    @DeleteMapping("/removeflower")
+    @PostMapping("/removeflower")
     public void removeFlower(@RequestBody Map<String, Object> json) {
         flowerStore.removeFlower(Flower.fromJson(json));
     }
 
-    @DeleteMapping("/removeflowerpack")
+    @PostMapping("/removeflowerpack")
     public void removeFlowerPack(@RequestBody Map<String, Object> json) {
         flowerStore.removeFlowerPack(FlowerPack.fromJson(json));
     }
 
-    @DeleteMapping("/removeflowerbucket")
+    @PostMapping("/removeflowerbucket")
     public void removeFlowerBucket(@RequestBody Map<String, Object> json) {
         flowerStore.removeFlowerBucket(FlowerBucket.fromJson(json));
     }
 
-    @DeleteMapping("removeitembyindex")
+    @PostMapping("removeitembyindex")
     public void removeItemByIndex(@RequestBody Map<String, Object> json) {
         flowerStore.removeItemById((int)json.get("index"));
     }
@@ -104,7 +104,7 @@ public class StoreManagement {
         order.addItem(Item.fromJson((Map<String, Object>)json.get("item")));
     }
 
-    @DeleteMapping("/removeorderbyindex")
+    @PostMapping("/removeorderbyindex")
     public void removeOrderByIndex(@RequestBody Map<String, Object> json) {
         int userid = (int)json.get("userid");
         orders.get(userid).remove((int)json.get("index"));

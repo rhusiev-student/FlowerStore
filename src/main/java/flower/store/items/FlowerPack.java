@@ -25,8 +25,9 @@ public class FlowerPack implements Item {
     }
 
     public static FlowerPack fromJson(Map<String, Object> json) {
-        return new FlowerPack(Flower.fromJson(json),
-                              (double)json.get("quantity"));
+        return new FlowerPack(
+            Flower.fromJson((Map<String, Object>)json.get("flower")),
+            (int)json.get("quantity"));
     }
 
     public Map<String, Object> toJson() {

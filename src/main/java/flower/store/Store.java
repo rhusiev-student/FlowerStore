@@ -22,14 +22,31 @@ public class Store {
         items.add(flowerBucket);
     }
 
-    public void removeFlower(Flower flower) { items.remove(flower); }
+    public void removeFlower(Flower flower) { 
+        for (Item item : items) {
+            if (flower.equals(item)) {
+                items.remove(item);
+                break;
+            }
+        }
+    }
 
     public void removeFlowerPack(FlowerPack flowerPack) {
-        items.remove(flowerPack);
+        for (Item item : items) {
+            if (flowerPack.equals(item)) {
+                items.remove(item);
+                break;
+            }
+        }
     }
 
     public void removeFlowerBucket(FlowerBucket flowerBucket) {
-        items.remove(flowerBucket);
+        for (Item item : items) {
+            if (flowerBucket.equals(item)) {
+                items.remove(item);
+                break;
+            }
+        }
     }
 
     public void removeItemById(int id) { items.remove(id); }
