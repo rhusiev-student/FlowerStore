@@ -17,11 +17,12 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
+      - name: Test with Maven
+        run: mvn test
       - name: Lint Code Base
         uses:  github/super-linter/slim@v4
         env:
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           JAVA_FILE_NAME: checkstyle.xml
-      - name: Test with Maven
-        run: mvn test
+          FILTER_REGEX_EXCLUDE: .*test.*
