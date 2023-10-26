@@ -10,7 +10,6 @@ public class FlowerBucketTest {
     private static final Random RANDOM_GENERATOR = new Random();
     private static final int MAX_QUANTITY = 1000;
     private static final int MAX_PRICE = 100;
-    private static final int DEFAULT_PRICE = 10;
 
     private FlowerBucket flowerBucket;
 

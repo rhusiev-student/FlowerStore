@@ -16,11 +16,11 @@ public interface PaymentStrategy {
         }
         int amount;
         try {
-            amount = (int)json.get("amount");
+            amount = (int) json.get("amount");
         } catch (ClassCastException e) {
             throw new IllegalArgumentException("Amount is not an integer");
         }
-        String type = (String)json.get("type");
+        String type = (String) json.get("type");
         if (type.equals("credit_card")) {
             return new CreditCardPaymentStrategy(amount);
         } else if (type.equals("paypal")) {

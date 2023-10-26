@@ -12,17 +12,23 @@ import lombok.Getter;
 public class Store {
     @Getter private List<Item> items;
 
-    public Store() { items = new ArrayList<>(); }
+    public Store() {
+        items = new ArrayList<>();
+    }
 
-    public void addFlower(Flower flower) { items.add(flower); }
+    public void addFlower(Flower flower) {
+        items.add(flower);
+    }
 
-    public void addFlowerPack(FlowerPack flowerPack) { items.add(flowerPack); }
+    public void addFlowerPack(FlowerPack flowerPack) {
+        items.add(flowerPack);
+    }
 
     public void addFlowerBucket(FlowerBucket flowerBucket) {
         items.add(flowerBucket);
     }
 
-    public void removeFlower(Flower flower) { 
+    public void removeFlower(Flower flower) {
         for (Item item : items) {
             if (flower.equals(item)) {
                 items.remove(item);
@@ -49,7 +55,9 @@ public class Store {
         }
     }
 
-    public void removeItemById(int id) { items.remove(id); }
+    public void removeItemById(int id) {
+        items.remove(id);
+    }
 
     public List<Item> search(SearchFilter filter) {
         List<Item> result = new ArrayList<>();

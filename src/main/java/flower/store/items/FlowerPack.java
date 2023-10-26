@@ -11,7 +11,9 @@ public class FlowerPack implements Item {
         this.quantity = quantity;
     }
 
-    public double getPrice() { return flower.getPrice() * quantity; }
+    public double getPrice() {
+        return flower.getPrice() * quantity;
+    }
 
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -20,14 +22,14 @@ public class FlowerPack implements Item {
         if (!(obj instanceof FlowerPack)) {
             return false;
         }
-        FlowerPack pack = (FlowerPack)obj;
+        FlowerPack pack = (FlowerPack) obj;
         return pack.flower.equals(flower) && pack.quantity == quantity;
     }
 
     public static FlowerPack fromJson(Map<String, Object> json) {
         return new FlowerPack(
-            Flower.fromJson((Map<String, Object>)json.get("flower")),
-            (int)json.get("quantity"));
+            Flower.fromJson((Map<String, Object>) json.get("flower")),
+            (int) json.get("quantity"));
     }
 
     public Map<String, Object> toJson() {

@@ -67,7 +67,7 @@ public class StoreManagement {
 
     @PostMapping("removeitembyindex")
     public void removeItemByIndex(@RequestBody Map<String, Object> json) {
-        flowerStore.removeItemById((int)json.get("index"));
+        flowerStore.removeItemById((int) json.get("index"));
     }
 
     @GetMapping("/getorders")
@@ -97,8 +97,8 @@ public class StoreManagement {
     @PostMapping("/adduser")
     public int addUser(@RequestBody Map<String, Object> json) {
         int userid;
-        for (userid = 0; orders.containsKey(userid); ++userid)
-            ;
+        for (userid = 0; orders.containsKey(userid); ++userid) {
+        }
         orders.put(userid, new ArrayList<Order>());
         orders.get(userid).add(new Order());
         return userid;
@@ -106,58 +106,58 @@ public class StoreManagement {
 
     @PostMapping("/removeuser")
     public void removeUser(@RequestBody Map<String, Object> json) {
-        orders.remove((int)json.get("userid"));
+        orders.remove((int) json.get("userid"));
     }
 
     @GetMapping("/getuserorders")
     public ArrayList<Order>
-    getUserOrders(@RequestBody Map<String, Object> json) {
-        return orders.get((Integer)json.get("userid"));
+        getUserOrders(@RequestBody Map<String, Object> json) {
+        return orders.get((Integer) json.get("userid"));
     }
 
     @PostMapping("/addorder")
     public void addOrder(@RequestBody Map<String, Object> json) {
-        int userid = (int)json.get("userid");
+        int userid = (int) json.get("userid");
         orders.get(userid).add(Order.fromJson(json));
     }
 
     @PostMapping("/addorderitem")
     public void addOrderItem(@RequestBody Map<String, Object> json) {
-        int userid = (int)json.get("userid");
-        Order order = orders.get(userid).get((int)json.get("index"));
-        order.addItem(Item.fromJson((Map<String, Object>)json.get("item")));
+        int userid = (int) json.get("userid");
+        Order order = orders.get(userid).get((int) json.get("index"));
+        order.addItem(Item.fromJson((Map<String, Object>) json.get("item")));
     }
 
     @PostMapping("/removeorderbyindex")
     public void removeOrderByIndex(@RequestBody Map<String, Object> json) {
-        int userid = (int)json.get("userid");
-        orders.get(userid).remove((int)json.get("index"));
+        int userid = (int) json.get("userid");
+        orders.get(userid).remove((int) json.get("index"));
     }
 
     @PostMapping("/setpaymentstrategy")
     public void setPaymentStrategy(@RequestBody Map<String, Object> json) {
-        int userid = (int)json.get("userid");
-        orders.get(userid).get((int)json.get("index")).setPaymentStrategy(json);
+        int userid = (int) json.get("userid");
+        orders.get(userid).get((int) json.get("index")).setPaymentStrategy(json);
     }
 
     @PostMapping("/setdeliverystrategy")
     public void setDeliveryStrategy(@RequestBody Map<String, Object> json) {
-        int userid = (int)json.get("userid");
+        int userid = (int) json.get("userid");
         orders.get(userid)
-            .get((int)json.get("index"))
+            .get((int) json.get("index"))
             .setDeliveryStrategy(json);
     }
 
     @PostMapping("/payorder")
     public void payOrder(@RequestBody Map<String, Object> json) {
-        int userid = (int)json.get("userid");
-        orders.get(userid).get((int)json.get("index")).pay();
+        int userid = (int) json.get("userid");
+        orders.get(userid).get((int) json.get("index")).pay();
     }
 
     @PostMapping("/deliverorder")
     public void deliverOrder(@RequestBody Map<String, Object> json) {
-        int userid = (int)json.get("userid");
-        orders.get(userid).get((int)json.get("index")).deliver();
+        int userid = (int) json.get("userid");
+        orders.get(userid).get((int) json.get("index")).deliver();
     }
 
     public static void main(String[] args) {

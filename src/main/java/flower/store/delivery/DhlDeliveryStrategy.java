@@ -3,10 +3,10 @@ package flower.store.delivery;
 import flower.store.items.Item;
 import java.util.List;
 
-public class PostDeliveryStrategy implements DeliveryStrategy {
+public class DhlDeliveryStrategy implements DeliveryStrategy {
     private String address;
 
-    public PostDeliveryStrategy(String address) {
+    public DhlDeliveryStrategy(String address) {
         this.address = address;
     }
 
@@ -19,6 +19,6 @@ public class PostDeliveryStrategy implements DeliveryStrategy {
     }
 
     public void deliver(List<Item> items) {
-        System.out.println("Delivered" + items + " with post to " + address);
+        System.out.println("Delivered" + items + " with dhl to " + address);
     }
 }

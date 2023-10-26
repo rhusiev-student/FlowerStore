@@ -35,7 +35,9 @@ public class Flower implements Item {
         this.flowerType = flowerType;
     }
 
-    public String getColor() { return color.toString(); }
+    public String getColor() {
+        return color.toString();
+    }
 
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -45,8 +47,8 @@ public class Flower implements Item {
             return false;
         }
         Flower flower = (Flower)obj;
-        return flower.sepalLength == sepalLength && flower.color == color &&
-            flower.price == price && flower.flowerType == flowerType;
+        return flower.sepalLength == sepalLength && flower.color == color
+            && flower.price == price && flower.flowerType == flowerType;
     }
 
     public Map<String, Object> toJson() {
@@ -55,9 +57,9 @@ public class Flower implements Item {
     }
 
     public static Flower fromJson(Map<String, Object> json) {
-        return new Flower((double)json.get("sepal_length"),
-                          FlowerColor.fromString((String)json.get("color")),
-                          (double)json.get("price"),
-                          FlowerType.valueOf((String)json.get("flower_type")));
+        return new Flower((double) json.get("sepal_length"),
+                          FlowerColor.fromString((String) json.get("color")),
+                          (double) json.get("price"),
+                          FlowerType.valueOf((String) json.get("flower_type")));
     }
 }

@@ -2,13 +2,8 @@ package ua.edu.ucu;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import flower.store.FlowerColor;
-import flower.store.FlowerType;
-import flower.store.items.Flower;
 import flower.store.items.FlowerBucket;
-import flower.store.items.FlowerPack;
 import java.util.Map;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -47,8 +42,8 @@ public class StoreManagementTest {
         HttpEntity<String> request = new HttpEntity<>(
             "{\"sepal_length\": 10.2, \"color\": \"BLUE\", \"price\": 1.1, \"flower_type\": \"TULIP\"}",
             headers);
-        this.restTemplate.postForObject("http://localhost:" + port +
-                                            "/api/addflower",
+        this.restTemplate.postForObject("http://localhost:" + port
+                                            + "/api/addflower",
                                         request, String.class);
 
         JsonNode response = this.restTemplate.getForObject(
@@ -60,8 +55,8 @@ public class StoreManagementTest {
         assert response.get(0).get("price").asDouble() == 1.1;
         assert response.get(0).get("flower_type").asText().equals("TULIP");
 
-        this.restTemplate.postForObject("http://localhost:" + port +
-                                            "/api/removeflower",
+        this.restTemplate.postForObject("http://localhost:" + port
+                                            + "/api/removeflower",
                                         request, String.class);
         response = this.restTemplate.getForObject(
             "http://localhost:" + port + "/api/getitems", JsonNode.class);
@@ -76,16 +71,16 @@ public class StoreManagementTest {
         String requestString =
             "{\"flower\": {\"sepal_length\": 10.2, \"color\": \"RED\", \"price\": 1.1, \"flower_type\": \"ROSE\"}, \"quantity\": 10}";
         HttpEntity<String> request = new HttpEntity<>(requestString, headers);
-        this.restTemplate.postForObject("http://localhost:" + port +
-                                            "/api/addflowerpack",
+        this.restTemplate.postForObject("http://localhost:" + port
+                                            + "/api/addflowerpack",
                                         request, String.class);
 
         JsonNode response = this.restTemplate.getForObject(
             "http://localhost:" + port + "/api/getitems", JsonNode.class);
         assert response.isArray();
         assert response.size() == 1;
-        assert response.get(0).get("flower").get("sepal_length").asDouble() ==
-            10.2;
+        assert response.get(0).get("flower").get("sepal_length").asDouble()
+            == 10.2;
         assert response.get(0).get("flower").get("color").asText().equals(
             "#FF0000");
         assert response.get(0).get("flower").get("price").asDouble() == 1.1;
@@ -96,8 +91,8 @@ public class StoreManagementTest {
             .equals("ROSE");
         assert response.get(0).get("quantity").asDouble() == 10;
 
-        this.restTemplate.postForObject("http://localhost:" + port +
-                                            "/api/removeflowerpack",
+        this.restTemplate.postForObject("http://localhost:" + port
+                                            + "/api/removeflowerpack",
                                         request, String.class);
         response = this.restTemplate.getForObject(
             "http://localhost:" + port + "/api/getitems", JsonNode.class);
@@ -115,8 +110,8 @@ public class StoreManagementTest {
             objectMapper.readValue(requestString, Map.class);
         FlowerBucket bucket = FlowerBucket.fromJson(requestMap);
         HttpEntity<String> request = new HttpEntity<>(requestString, headers);
-        this.restTemplate.postForObject("http://localhost:" + port +
-                                            "/api/addflowerbucket",
+        this.restTemplate.postForObject("http://localhost:" + port
+                                            + "/api/addflowerbucket",
                                         request, String.class);
 
         JsonNode response = this.restTemplate.getForObject(
@@ -141,8 +136,8 @@ public class StoreManagementTest {
             .equals("ROSE");
         assert flowerPack.get("quantity").asDouble() == 10;
 
-        this.restTemplate.postForObject("http://localhost:" + port +
-                                            "/api/removeflowerbucket",
+        this.restTemplate.postForObject("http://localhost:" + port
+                                            + "/api/removeflowerbucket",
                                         request, String.class);
         response = this.restTemplate.getForObject(
             "http://localhost:" + port + "/api/getitems", JsonNode.class);
@@ -157,8 +152,8 @@ public class StoreManagementTest {
         String requestString =
             "{\"items\": [{\"sepal_length\": 10.2, \"color\": \"RED\", \"price\": 1.1, \"flower_type\": \"ROSE\"}, {\"flower\": {\"sepal_length\": 10.2, \"color\": \"RED\", \"price\": 1.1, \"flower_type\": \"ROSE\"}, \"quantity\": 10}]}";
         HttpEntity<String> request = new HttpEntity<>(requestString, headers);
-        this.restTemplate.postForObject("http://localhost:" + port +
-                                            "/api/addflowerbucket",
+        this.restTemplate.postForObject("http://localhost:" + port
+                                            + "/api/addflowerbucket",
                                         request, String.class);
 
         JsonNode response = this.restTemplate.getForObject(
@@ -169,8 +164,8 @@ public class StoreManagementTest {
         requestString =
             "{\"sepal_length\": 10.2, \"color\": \"RED\", \"price\": 1.1, \"flower_type\": \"ROSE\"}";
         request = new HttpEntity<>(requestString, headers);
-        this.restTemplate.postForObject("http://localhost:" + port +
-                                            "/api/addflower",
+        this.restTemplate.postForObject("http://localhost:" + port
+                                            + "/api/addflower",
                                         request, String.class);
 
         response = this.restTemplate.getForObject(
@@ -180,10 +175,10 @@ public class StoreManagementTest {
 
         requestString = "{\"index\": 1}";
         request = new HttpEntity<>(requestString, headers);
-        this.restTemplate.postForObject("http://localhost:" + port +
-                                            "/api/removeitembyindex",
+        this.restTemplate.postForObject("http://localhost:" + port
+                                            + "/api/removeitembyindex",
                                         request, String.class);
-        
+
         response = this.restTemplate.getForObject(
             "http://localhost:" + port + "/api/getitems", JsonNode.class);
         assert response.isArray();
@@ -193,8 +188,8 @@ public class StoreManagementTest {
 
         requestString = "{\"index\": 0}";
         request = new HttpEntity<>(requestString, headers);
-        this.restTemplate.postForObject("http://localhost:" + port +
-                                            "/api/removeitembyindex",
+        this.restTemplate.postForObject("http://localhost:" + port
+                                            + "/api/removeitembyindex",
                                         request, String.class);
 
         response = this.restTemplate.getForObject(
@@ -218,20 +213,21 @@ public class StoreManagementTest {
         String requestString =
             "{\"sepal_length\": 10.2, \"color\": \"RED\", \"price\": 1.1, \"flower_type\": \"ROSE\"}";
         HttpEntity<String> request = new HttpEntity<>(requestString, headers);
-        this.restTemplate.postForObject("http://localhost:" + port +
-                                            "/api/addflower",
+        this.restTemplate.postForObject("http://localhost:" + port
+                                            + "/api/addflower",
                                         request, String.class);
 
         requestString = "{}";
         request = new HttpEntity<>(requestString, headers);
         int userid = this.restTemplate.postForObject(
-            "http://localhost:" + port + "/api/adduser", request, Integer.class);
+            "http://localhost:" + port + "/api/adduser", request,
+            Integer.class);
         assert userid == 0;
 
         requestString = "{\"userid\": " + userid + "}";
         request = new HttpEntity<>(requestString, headers);
-        this.restTemplate.postForObject("http://localhost:" + port +
-                                            "/api/removeuser",
+        this.restTemplate.postForObject("http://localhost:" + port
+                                            + "/api/removeuser",
                                         request, String.class);
         JsonNode response = this.restTemplate.getForObject(
             "http://localhost:" + port + "/api/getorders", JsonNode.class);
@@ -240,8 +236,8 @@ public class StoreManagementTest {
 
         requestString = "{\"index\": 0}";
         request = new HttpEntity<>(requestString, headers);
-        this.restTemplate.postForObject("http://localhost:" + port +
-                                            "/api/removeitembyindex",
+        this.restTemplate.postForObject("http://localhost:" + port
+                                            + "/api/removeitembyindex",
                                         request, String.class);
     }
 
@@ -252,20 +248,21 @@ public class StoreManagementTest {
         String requestString =
             "{\"sepal_length\": 10.2, \"color\": \"RED\", \"price\": 1.1, \"flower_type\": \"ROSE\"}";
         HttpEntity<String> request = new HttpEntity<>(requestString, headers);
-        this.restTemplate.postForObject("http://localhost:" + port +
-                                            "/api/addflower",
+        this.restTemplate.postForObject("http://localhost:" + port
+                                            + "/api/addflower",
                                         request, String.class);
 
         requestString = "{}";
         request = new HttpEntity<>(requestString, headers);
         int userid = this.restTemplate.postForObject(
-            "http://localhost:" + port + "/api/adduser", request, Integer.class);
+            "http://localhost:" + port + "/api/adduser", request,
+            Integer.class);
 
         requestString = "{\"userid\": " + userid + "}";
         request = new HttpEntity<>(requestString, headers);
-        this.restTemplate.postForObject(
-            "http://localhost:" + port + "/api/addorder", request,
-            String.class);
+        this.restTemplate.postForObject("http://localhost:" + port
+                                            + "/api/addorder",
+                                        request, String.class);
 
         JsonNode response = this.restTemplate.getForObject(
             "http://localhost:" + port + "/api/getorders", JsonNode.class);
@@ -276,9 +273,9 @@ public class StoreManagementTest {
 
         requestString = "{\"userid\": " + userid + ", \"index\": 0}";
         request = new HttpEntity<>(requestString, headers);
-        this.restTemplate.postForObject(
-            "http://localhost:" + port + "/api/removeorderbyindex", request,
-            String.class);
+        this.restTemplate.postForObject("http://localhost:" + port
+                                            + "/api/removeorderbyindex",
+                                        request, String.class);
         response = this.restTemplate.getForObject(
             "http://localhost:" + port + "/api/getorders", JsonNode.class);
         assert response.isObject();
@@ -287,14 +284,14 @@ public class StoreManagementTest {
 
         requestString = "{\"userid\": " + userid + "}";
         request = new HttpEntity<>(requestString, headers);
-        this.restTemplate.postForObject("http://localhost:" + port +
-                                            "/api/removeuser",
+        this.restTemplate.postForObject("http://localhost:" + port
+                                            + "/api/removeuser",
                                         request, String.class);
 
         requestString = "{\"index\": 0}";
         request = new HttpEntity<>(requestString, headers);
-        this.restTemplate.postForObject("http://localhost:" + port +
-                                            "/api/removeitembyindex",
+        this.restTemplate.postForObject("http://localhost:" + port
+                                            + "/api/removeitembyindex",
                                         request, String.class);
     }
 
@@ -306,18 +303,20 @@ public class StoreManagementTest {
         String requestString = "{}";
         HttpEntity<String> request = new HttpEntity<>(requestString, headers);
         int userid = this.restTemplate.postForObject(
-            "http://localhost:" + port + "/api/adduser", request, Integer.class);
+            "http://localhost:" + port + "/api/adduser", request,
+            Integer.class);
         requestString = "{\"userid\": " + userid + "}";
         request = new HttpEntity<>(requestString, headers);
-        this.restTemplate.postForObject(
-            "http://localhost:" + port + "/api/addorder", request,
-            String.class);
+        this.restTemplate.postForObject("http://localhost:" + port
+                                            + "/api/addorder",
+                                        request, String.class);
         requestString =
-            "{\"userid\": " + userid + ", \"index\": 0, \"type\": \"credit_card\", \"amount\": 100}";
+            "{\"userid\": " + userid
+            + ", \"index\": 0, \"type\": \"credit_card\", \"amount\": 100}";
         request = new HttpEntity<>(requestString, headers);
-        this.restTemplate.postForObject(
-            "http://localhost:" + port + "/api/setpaymentstrategy", request,
-            String.class);
+        this.restTemplate.postForObject("http://localhost:" + port
+                                            + "/api/setpaymentstrategy",
+                                        request, String.class);
 
         // Check whether payment strategy is set
         JsonNode response = this.restTemplate.getForObject(
@@ -333,16 +332,16 @@ public class StoreManagementTest {
             .asText()
             .equals("credit_card");
         assert response.get("0")
-            .get(0)
-            .get("payment_strategy")
-            .get("amount")
-            .asInt() == 100;
-        
+                .get(0)
+                .get("payment_strategy")
+                .get("amount")
+                .asInt() == 100;
+
         // Delete user
         requestString = "{\"userid\": " + userid + "}";
         request = new HttpEntity<>(requestString, headers);
-        this.restTemplate.postForObject("http://localhost:" + port +
-                                            "/api/removeuser",
+        this.restTemplate.postForObject("http://localhost:" + port
+                                            + "/api/removeuser",
                                         request, String.class);
     }
 
@@ -354,18 +353,20 @@ public class StoreManagementTest {
         String requestString = "{}";
         HttpEntity<String> request = new HttpEntity<>(requestString, headers);
         int userid = this.restTemplate.postForObject(
-            "http://localhost:" + port + "/api/adduser", request, Integer.class);
+            "http://localhost:" + port + "/api/adduser", request,
+            Integer.class);
         requestString = "{\"userid\": " + userid + "}";
         request = new HttpEntity<>(requestString, headers);
-        this.restTemplate.postForObject(
-            "http://localhost:" + port + "/api/addorder", request,
-            String.class);
+        this.restTemplate.postForObject("http://localhost:" + port
+                                            + "/api/addorder",
+                                        request, String.class);
         requestString =
-            "{\"userid\": " + userid + ", \"index\": 0, \"type\": \"dhl\", \"address\": \"address\"}";
+            "{\"userid\": " + userid +
+            ", \"index\": 0, \"type\": \"dhl\", \"address\": \"address\"}";
         request = new HttpEntity<>(requestString, headers);
-        this.restTemplate.postForObject(
-            "http://localhost:" + port + "/api/setdeliverystrategy", request,
-            String.class);
+        this.restTemplate.postForObject("http://localhost:" + port
+                                            + "/api/setdeliverystrategy",
+                                        request, String.class);
 
         // Check whether delivery strategy is set
         JsonNode response = this.restTemplate.getForObject(
@@ -386,12 +387,12 @@ public class StoreManagementTest {
             .get("address")
             .asText()
             .equals("address");
-        
+
         // Delete user
         requestString = "{\"userid\": " + userid + "}";
         request = new HttpEntity<>(requestString, headers);
-        this.restTemplate.postForObject("http://localhost:" + port +
-                                            "/api/removeuser",
+        this.restTemplate.postForObject("http://localhost:" + port
+                                            + "/api/removeuser",
                                         request, String.class);
     }
 }
