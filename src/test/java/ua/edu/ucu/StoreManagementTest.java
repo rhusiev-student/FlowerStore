@@ -361,8 +361,8 @@ public class StoreManagementTest {
                                             + "/api/addorder",
                                         request, String.class);
         requestString =
-            "{\"userid\": " + userid +
-            ", \"index\": 0, \"type\": \"dhl\", \"address\": \"address\"}";
+            "{\"userid\": " + userid
+            + ", \"index\": 0, \"type\": \"dhl\", \"address\": \"address\"}";
         request = new HttpEntity<>(requestString, headers);
         this.restTemplate.postForObject("http://localhost:" + port
                                             + "/api/setdeliverystrategy",

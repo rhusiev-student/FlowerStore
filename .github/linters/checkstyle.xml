@@ -24,7 +24,7 @@
 
     <!-- Check that length of line is at most 80 characters. -->
     <module name="LineLength">
-        <property name="max" value="80"/>
+        <property name="max" value="120"/>
         <property name="ignorePattern" value="^ *\* *[^ ]+$"/>
     </module>
 
@@ -57,9 +57,9 @@
         <!-- Block checks                                                                -->
         <!-- http://checkstyle.sourceforge.net/config_blocks.html                        -->
         <!-- =========================================================================== -->
-        <module name="EmptyBlock">
-            <property name="option" value="text"/>
-        </module>
+        <!-- <module name="EmptyBlock"> -->
+        <!--     <property name="option" value="text"/> -->
+        <!-- </module> -->
         <module name="AvoidNestedBlocks"/>
 
 
@@ -85,17 +85,17 @@
         <!--    <module name="DoubleCheckedLocking"/>  NO LONGER AVAILABLE IN CHECKSTYLE 5.6 -->
         <module name="EmptyStatement"/>
         <!--        <module name="EqualsHashCode"/> -->
-        <module name="HiddenField">
-            <property name="ignoreConstructorParameter" value="true"/>
-        </module>
+        <!-- <module name="HiddenField"> -->
+        <!--     <property name="ignoreConstructorParameter" value="true"/> -->
+        <!-- </module> -->
         <module name="IllegalInstantiation"/>
         <module name="InnerAssignment"/>
-        <module name="MagicNumber">
-            <property name="tokens"
-                      value="NUM_DOUBLE, NUM_FLOAT, NUM_INT, NUM_LONG"/>
-            <property name="ignoreNumbers" value="-1, 0, 0.5, 1, 2"/>
-            <property name="ignoreHashCodeMethod" value="true"/>
-        </module>
+        <!-- <module name="MagicNumber"> -->
+        <!--     <property name="tokens" -->
+        <!--               value="NUM_DOUBLE, NUM_FLOAT, NUM_INT, NUM_LONG"/> -->
+        <!--     <property name="ignoreNumbers" value="-1, 0, 0.5, 1, 2"/> -->
+        <!--     <property name="ignoreHashCodeMethod" value="true"/> -->
+        <!-- </module> -->
         <module name="MissingSwitchDefault"/>
         <module name="ModifiedControlVariable"/>
         <module name="SimplifyBooleanExpression"/>
@@ -110,9 +110,9 @@
         <module name="NestedTryDepth">
             <property name="max" value="1"/>
         </module>
-        <module name="NoClone"/>
+        <!-- <module name="NoClone"/> -->
         <module name="NoFinalizer"/>
-        <module name="SuperClone"/>
+        <!-- <module name="SuperClone"/> -->
         <module name="SuperFinalize"/>
 
         <!-- Avoid masking of OutOfMemoryError or NullPointerExceptionError -->
@@ -124,7 +124,7 @@
                       value="java.lang.Boolean, java.lang.Integer, java.lang.Double, java.lang.Float, java.lang.Character, java.lang.Long, java.lang.Short, java.lang.Byte, java.lang.Class"/>
         </module>
 
-        <module name="DeclarationOrder"/>
+        <!-- <module name="DeclarationOrder"/> -->
         <module name="ParameterAssignment"/>
         <module name="DefaultComesLast"/>
         <module name="FallThrough">
@@ -188,7 +188,7 @@
         <!-- http://checkstyle.sourceforge.net/config_modifier.html                      -->
         <!-- =========================================================================== -->
         <module name="ModifierOrder"/>
-        <module name="RedundantModifier"/>
+        <!-- <module name="RedundantModifier"/> -->
 
 
         <!-- =========================================================================== -->

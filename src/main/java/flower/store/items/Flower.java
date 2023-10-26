@@ -46,7 +46,7 @@ public class Flower implements Item {
         if (!(obj instanceof Flower)) {
             return false;
         }
-        Flower flower = (Flower)obj;
+        Flower flower = (Flower) obj;
         return flower.sepalLength == sepalLength && flower.color == color
             && flower.price == price && flower.flowerType == flowerType;
     }
