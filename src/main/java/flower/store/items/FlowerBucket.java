@@ -46,8 +46,7 @@ public class FlowerBucket implements Item {
             (List<Map<String, Object>>)json.get("items");
         for (Map<String, Object> item : items) {
             if (item.containsKey("quantity")) {
-                bucket.add(new FlowerPack(Flower.fromJson(item),
-                                          (double)item.get("quantity")));
+                bucket.add(FlowerPack.fromJson(item));
             } else {
                 bucket.add(Flower.fromJson(item));
             }

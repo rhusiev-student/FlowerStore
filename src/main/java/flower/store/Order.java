@@ -32,42 +32,80 @@ public class Order {
         for (Item item : this.items) {
             items.add(item.toJson());
         }
-        return Map.of("items", items);
-    }
-
-    public static Order fromJson(Map<String, Object> json) {
-        Order order = new Order();
-        List<Map<String, Object>> items =
-            (List<Map<String, Object>>)json.get("items");
-        for (Map<String, Object> item : items) {
-            if (item.containsKey("quantity")) {
-                order.addItem(FlowerPack.fromJson(item));
-            } else if (item.containsKey("items")) {
-                order.addItem(FlowerBucket.fromJson(item));
-            } else {
-                order.addItem(Flower.fromJson(item));
+        String paymentStrategyName = "unknown";
+        String deliveryStrategyName = "unknown";
+        Integer paymentStrategyAmount = 0;
+        String deliveryStrategyAddress = "";
+        if (paymentStrategy == null) {
+            paymentStrategyName = "undefined";
+        } else {
+            if (paymentStrategy.getClass().getName().equals(
+                    "flower.store.payment.CreditCardPaymentStrategy")) {
+                paymentStrategyName = "credit_card";
+                paymentStrategyAmount = paymentStrategy.getAmount();
+            } else if (paymentStrategy.getClass().getName().equals(
+                           "flower.store.payment.PayPalPaymentStrategy")) {
+                paymentStrategyName = "paypal";
+                paymentStrategyAmount = paymentStrategy.getAmount();
             }
         }
-        return order;
-    }
-
-    public void setPaymentStrategy(Map<String, Object> json) {
-        paymentStrategy = PaymentStrategy.fromJson(json);
-    }
-
-    public int getPrice() {
-        int price = 0;
-        for (Item item : items) {
-            price += item.getPrice();
+        if (deliveryStrategy == null) {
+            deliveryStrategyName = "undefined";
+        } else {
+            if (deliveryStrategy.getClass().getName().equals(
+                    "flower.store.delivery.DHLDeliveryStrategy")) {
+                deliveryStrategyName = "dhl";
+                deliveryStrategyAddress = deliveryStrategy.getAddress();
+            } else if (deliveryStrategy.getClass().getName().equals(
+                           "flower.store.delivery.PostDeliveryStrategy")) {
+                deliveryStrategyName = "post";
+                deliveryStrategyAddress = deliveryStrategy.getAddress();
+            }
         }
-        return price;
+        return Map.of("items", items,
+                      "payment_strategy", Map.of("type", paymentStrategyName,
+                                                 "amount", paymentStrategyAmount),
+                      "delivery_strategy", Map.of("type", deliveryStrategyName,
+                                                  "address", deliveryStrategyAddress));
     }
 
-    public void pay() { paymentStrategy.pay(getPrice()); }
+        public static Order fromJson(Map<String, Object> json) {
+            Order order = new Order();
+            List<Map<String, Object>> items =
+                (List<Map<String, Object>>)json.get("items");
+            for (Map<String, Object> item : items) {
+                if (item.containsKey("quantity")) {
+                    order.addItem(FlowerPack.fromJson(item));
+                } else if (item.containsKey("items")) {
+                    order.addItem(FlowerBucket.fromJson(item));
+                } else if (item.containsKey("payment_strategy")) {
+                    order.setPaymentStrategy(item);
+                } else if (item.containsKey("delivery_strategy")) {
+                    order.setDeliveryStrategy(item);
+                } else {
+                    order.addItem(Flower.fromJson(item));
+                }
+            }
+            return order;
+        }
 
-    public void setDeliveryStrategy(Map<String, Object> json) {
-        deliveryStrategy = DeliveryStrategy.fromJson(json);
+        public void setPaymentStrategy(Map<String, Object> json) {
+            this.paymentStrategy = PaymentStrategy.fromJson(json);
+        }
+
+        public int getPrice() {
+            int price = 0;
+            for (Item item : items) {
+                price += item.getPrice();
+            }
+            return price;
+        }
+
+        public void pay() { paymentStrategy.pay(getPrice()); }
+
+        public void setDeliveryStrategy(Map<String, Object> json) {
+            this.deliveryStrategy = DeliveryStrategy.fromJson(json);
+        }
+
+        public void deliver() { deliveryStrategy.deliver(items); }
     }
-
-    public void deliver() { deliveryStrategy.deliver(items); }
-}

@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -72,8 +71,18 @@ public class StoreManagement {
     }
 
     @GetMapping("/getorders")
-    public Map<Integer, ArrayList<Order>> getOrders() {
-        return orders;
+    public Map<Integer, ArrayList<Map<String, Object>>> getOrders() {
+        Map<Integer, ArrayList<Map<String, Object>>> result =
+            new HashMap<Integer, ArrayList<Map<String, Object>>>();
+        for (Map.Entry<Integer, ArrayList<Order>> entry : orders.entrySet()) {
+            ArrayList<Map<String, Object>> userOrders =
+                new ArrayList<Map<String, Object>>();
+            for (Order order : entry.getValue()) {
+                userOrders.add(order.toJson());
+            }
+            result.put(entry.getKey(), userOrders);
+        }
+        return result;
     }
 
     @PostMapping("/addtempuser")
@@ -83,6 +92,21 @@ public class StoreManagement {
         orders.get(userid).add(new Order());
         orders.get(userid).get(0).addItem(new FlowerBucket());
         return userid;
+    }
+
+    @PostMapping("/adduser")
+    public int addUser(@RequestBody Map<String, Object> json) {
+        int userid;
+        for (userid = 0; orders.containsKey(userid); ++userid)
+            ;
+        orders.put(userid, new ArrayList<Order>());
+        orders.get(userid).add(new Order());
+        return userid;
+    }
+
+    @PostMapping("/removeuser")
+    public void removeUser(@RequestBody Map<String, Object> json) {
+        orders.remove((int)json.get("userid"));
     }
 
     @GetMapping("/getuserorders")
@@ -111,13 +135,13 @@ public class StoreManagement {
     }
 
     @PostMapping("/setpaymentstrategy")
-    public void setPaymentStrategy(int id, Map<String, Object> json) {
+    public void setPaymentStrategy(@RequestBody Map<String, Object> json) {
         int userid = (int)json.get("userid");
         orders.get(userid).get((int)json.get("index")).setPaymentStrategy(json);
     }
 
-    @PostMapping("/setdeliverstrategy")
-    public void setDeliverStrategy(int id, Map<String, Object> json) {
+    @PostMapping("/setdeliverystrategy")
+    public void setDeliveryStrategy(@RequestBody Map<String, Object> json) {
         int userid = (int)json.get("userid");
         orders.get(userid)
             .get((int)json.get("index"))
