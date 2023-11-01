@@ -7,11 +7,17 @@ import flower.store.items.FlowerPack;
 import flower.store.items.Item;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import lombok.Getter;
 
+@Service
 public class FlowerService {
     @Getter private List<Item> items;
 
+    @Autowired
     public FlowerService() {
         items = new ArrayList<>();
     }
