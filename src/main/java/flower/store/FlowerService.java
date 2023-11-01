@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 
-public class Store {
+public class FlowerService {
     @Getter private List<Item> items;
 
-    public Store() {
+    public FlowerService() {
         items = new ArrayList<>();
     }
 

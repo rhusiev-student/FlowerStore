@@ -260,9 +260,10 @@ public class StoreManagementTest {
 
         requestString = "{\"userid\": " + userid + "}";
         request = new HttpEntity<>(requestString, headers);
-        this.restTemplate.postForObject("http://localhost:" + port
+        Map<String, Object> result = this.restTemplate.postForObject("http://localhost:" + port
                                             + "/api/addorder",
-                                        request, String.class);
+                                        request, Map.class);
+        System.out.println(result);
 
         JsonNode response = this.restTemplate.getForObject(
             "http://localhost:" + port + "/api/getorders", JsonNode.class);
