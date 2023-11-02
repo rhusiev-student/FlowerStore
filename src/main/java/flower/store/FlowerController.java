@@ -1,10 +1,6 @@
-package ua.edu.ucu;
+package flower.store;
 
-import flower.store.Order;
-import flower.store.FlowerService;
 import flower.store.items.Flower;
-import flower.store.items.FlowerBucket;
-import flower.store.items.FlowerPack;
 import flower.store.items.Item;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,69 +9,46 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@SpringBootApplication
 @RestController
-@RequestMapping("/api/")
-public class StoreManagement {
-    private FlowerService flowerService;
+@RequestMapping("/api/v1/")
+public class FlowerController {
+    private final FlowerService flowerService;
     private Map<Integer, ArrayList<Order>> orders =
         new HashMap<Integer, ArrayList<Order>>();
 
     @Autowired
-    public StoreManagement() {
-        flowerService = new FlowerService();
+    public FlowerController(FlowerService flowerService) {
+        this.flowerService = flowerService;
     }
 
-    @GetMapping("/getitems")
+    @GetMapping("/flower")
     public List<Map<String, Object>> getItems() {
         List<Map<String, Object>> items = new ArrayList<>();
-        for (Item item : flowerService.getItems()) {
+        for (Item item : flowerService.get()) {
             items.add(item.toJson());
         }
         return items;
     }
 
-    @PostMapping("/addflower")
+    @PostMapping("/flower")
     public void addFlower(@RequestBody Map<String, Object> json) {
-        flowerService.addFlower(Flower.fromJson(json));
+        flowerService.add(Flower.fromJson(json));
     }
-
-    @PostMapping("/addflowerpack")
-    public void addFlowerPack(@RequestBody Map<String, Object> json) {
-        flowerService.addFlowerPack(FlowerPack.fromJson(json));
-    }
-
-    @PostMapping("/addflowerbucket")
-    public void addFlowerBucket(@RequestBody Map<String, Object> json) {
-        flowerService.addFlowerBucket(FlowerBucket.fromJson(json));
-    }
-
-    @PostMapping("/removeflower")
+    
+    @PostMapping("/remove")
     public void removeFlower(@RequestBody Map<String, Object> json) {
-        flowerService.removeFlower(Flower.fromJson(json));
+        flowerService.remove(Flower.fromJson(json));
     }
 
-    @PostMapping("/removeflowerpack")
-    public void removeFlowerPack(@RequestBody Map<String, Object> json) {
-        flowerService.removeFlowerPack(FlowerPack.fromJson(json));
-    }
-
-    @PostMapping("/removeflowerbucket")
-    public void removeFlowerBucket(@RequestBody Map<String, Object> json) {
-        flowerService.removeFlowerBucket(FlowerBucket.fromJson(json));
-    }
-
-    @PostMapping("removeitembyindex")
+    @PostMapping("removebyindex")
     public void removeItemByIndex(@RequestBody Map<String, Object> json) {
-        flowerService.removeItemById((int) json.get("index"));
+        flowerService.removeById((int) json.get("index"));
     }
 
     @GetMapping("/getorders")
@@ -98,7 +71,7 @@ public class StoreManagement {
         int userid = -1;
         orders.put(userid, new ArrayList<Order>());
         orders.get(userid).add(new Order());
-        orders.get(userid).get(0).addItem(new FlowerBucket());
+        orders.get(userid).get(0).addItem(new Flower());
         return userid;
     }
 
@@ -168,6 +141,6 @@ public class StoreManagement {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(StoreManagement.class, args);
+        SpringApplication.run(FlowerController.class, args);
     }
 }
