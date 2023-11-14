@@ -14,13 +14,16 @@ public class Order {
     private List<Item> items;
     private PaymentStrategy paymentStrategy;
     private DeliveryStrategy deliveryStrategy;
+    private List<AppUser> users;
 
     public Order(List<Item> items) {
         this.items = items;
+        this.users = new ArrayList<>();
     }
 
     public Order() {
         this.items = new ArrayList<>();
+        this.users = new ArrayList<>();
     }
 
     public void addItem(Item item) {
@@ -124,5 +127,25 @@ public class Order {
 
     public void deliver() {
         deliveryStrategy.deliver(items);
+    }
+
+    public void addUser(AppUser user) {
+        users.add(user);
+    }
+
+    public void removeUser(AppUser user) {
+        users.remove(user);
+    }
+
+    public void notifyUsers() {
+        for (AppUser user : users) {
+            user.update("Your order is ready!");
+        }
+    }
+
+    public void order() {
+        pay();
+        deliver();
+        notifyUsers();
     }
 }
