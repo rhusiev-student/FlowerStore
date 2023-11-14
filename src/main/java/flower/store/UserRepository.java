@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends JpaRepository<AppUser, Long> {
-    // @Query("SELECT u FROM app_user u WHERE u.email = ?1")
-    // Optional<AppUser> findUserByEmail(@Param("email") String email);
+    @Query("SELECT u FROM AppUser u WHERE u.email = ?1")
+    Optional<AppUser> findUserByEmail(@Param("email") String email);
 }
