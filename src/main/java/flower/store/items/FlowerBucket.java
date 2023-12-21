@@ -43,9 +43,9 @@ public class FlowerBucket extends Item {
         if (!(obj instanceof FlowerBucket)) {
             return false;
         }
-        FlowerBucket bucket = (FlowerBucket)obj;
-        return bucket.bucketItems.equals(bucketItems) &&
-            bucket.description.equals(description);
+        FlowerBucket bucket = (FlowerBucket) obj;
+        return bucket.bucketItems.equals(bucketItems)
+            && bucket.description.equals(description);
     }
 
     public Map<String, Object> toJson() {
@@ -59,8 +59,8 @@ public class FlowerBucket extends Item {
     public static FlowerBucket fromJson(Map<String, Object> json) {
         FlowerBucket bucket = new FlowerBucket();
         List<Map<String, Object>> items =
-            (List<Map<String, Object>>)json.get("items");
-        String description = (String)json.get("description");
+            (List<Map<String, Object>>) json.get("items");
+        String description = (String) json.get("description");
         bucket.setDescription(description);
         for (Map<String, Object> item : items) {
             if (item.containsKey("quantity")) {

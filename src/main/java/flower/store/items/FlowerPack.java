@@ -30,15 +30,15 @@ public class FlowerPack extends Item {
         if (!(obj instanceof FlowerPack)) {
             return false;
         }
-        FlowerPack pack = (FlowerPack)obj;
-        return pack.flower.equals(flower) && pack.quantity == quantity &&
-            pack.description.equals(description);
+        FlowerPack pack = (FlowerPack) obj;
+        return pack.flower.equals(flower) && pack.quantity == quantity
+            && pack.description.equals(description);
     }
 
     public static FlowerPack fromJson(Map<String, Object> json) {
         return new FlowerPack(
-            Flower.fromJson((Map<String, Object>)json.get("flower")),
-            (int)json.get("quantity"), (String)json.get("description"));
+            Flower.fromJson((Map<String, Object>) json.get("flower")),
+            (int) json.get("quantity"), (String) json.get("description"));
     }
 
     public Map<String, Object> toJson() {

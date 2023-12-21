@@ -58,10 +58,10 @@ public class Flower extends Item {
         if (!(obj instanceof Flower)) {
             return false;
         }
-        Flower flower = (Flower)obj;
-        return flower.sepalLength == sepalLength && flower.color == color &&
-            flower.price == price && flower.flowerType == flowerType &&
-            flower.description == description;
+        Flower flower = (Flower) obj;
+        return flower.sepalLength == sepalLength && flower.color == color
+            && flower.price == price && flower.flowerType == flowerType
+            && flower.description == description;
     }
 
     public Map<String, Object> toJson() {
@@ -71,10 +71,10 @@ public class Flower extends Item {
     }
 
     public static Flower fromJson(Map<String, Object> json) {
-        return new Flower((double)json.get("sepal_length"),
-                          FlowerColor.fromString((String)json.get("color")),
-                          (double)json.get("price"),
-                          FlowerType.valueOf((String)json.get("flower_type")),
-                          (String)json.get("description"));
+        return new Flower((double) json.get("sepal_length"),
+                          FlowerColor.fromString((String) json.get("color")),
+                          (double) json.get("price"),
+                          FlowerType.valueOf((String) json.get("flower_type")),
+                          (String) json.get("description"));
     }
 }
